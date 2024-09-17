@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import Header from '../Header'
 import { FaPlusCircle } from "react-icons/fa";
 import { FaSquarePlus } from "react-icons/fa6";
-import { MdDelete, MdFavorite, MdEdit } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import ColorBox from './ColorBox';
+import BoxNote from './BoxNote';
 
 export class NoteApp extends Component {
     constructor(props) {
@@ -27,12 +27,16 @@ export class NoteApp extends Component {
             isAddNewNote: false,
             newNote: {
                 id: null,
+                isFavorite: false,
                 date: null,
                 title: '',
                 description: '',
                 color: '#fff',
+
+
             },
-            notes: []
+            notes: [],
+
         }
 
         this.showAddNewNoteHandler = this.showAddNewNoteHandler.bind(this)
@@ -40,17 +44,56 @@ export class NoteApp extends Component {
         this.titleNoteHandler = this.titleNoteHandler.bind(this)
         this.descriptionNoteHandler = this.descriptionNoteHandler.bind(this)
         this.addNewNote = this.addNewNote.bind(this)
+        this.addToFavorite = this.addToFavorite.bind(this)
+        this.removeNote = this.removeNote.bind(this)
+        this.removeToFavorite = this.removeToFavorite.bind(this)
     }
+
+    removeToFavorite(id) {
+        this.setState(preState => ({
+            notes: preState.notes.map(note => {
+                if (note.id === id) {
+                    return { ...note, isFavorite: false }
+                } else {
+                    return note;
+                }
+            })
+        }))
+    }
+
+    removeNote(id) {
+        let newNotes = this.state.notes.filter(note => note.id != id)
+        this.setState({
+            notes: [...newNotes],
+        })
+    }
+
+    addToFavorite(id) {
+        this.setState(preState => ({
+            notes: preState.notes.map(note => {
+                if (note.id === id) {
+                    return { ...note, isFavorite: true }
+                } else {
+                    return note;
+                }
+            })
+        }))
+    }
+
     addNewNote() {
+        console.log(this.state.newNote);
+
         let now = new Date()
         this.setState(preState => ({
             notes: [...preState.notes, { ...preState.newNote, id: this.state.notes.length + 1, date: `${now.getFullYear()}/${now.getMonth()}/${now.getDay()} ` }],
             newNote: {
                 id: null,
+                isFavorite: false,
                 date: null,
                 title: '',
                 description: '',
                 color: '#fff',
+
             },
         }))
     }
@@ -69,7 +112,7 @@ export class NoteApp extends Component {
         this.setState(preState => ({
             newNote: {
                 ...preState.newNote,
-                title: event.target.value.trim()
+                title: event.target.value
             }
         }))
     }
@@ -78,7 +121,7 @@ export class NoteApp extends Component {
         this.setState(preState => ({
             newNote: {
                 ...preState.newNote,
-                description: event.target.value.trim()
+                description: event.target.value
             }
         }))
 
@@ -93,10 +136,16 @@ export class NoteApp extends Component {
                 title: '',
                 description: '',
                 color: '#fff',
+                isFavorite: false,
             },
         }))
     }
     render() {
+
+        let checkIsFavoriteNote = this.state.notes.some(note => note.isFavorite === true)
+
+
+
         return (
             <>
                 {/* add new note wrapper */}
@@ -142,139 +191,30 @@ export class NoteApp extends Component {
                         <main className='bg-gray-100 min-h-[calc(100vh-112px)] rounded-t-lg rounded-bl-lg p-3'>
                             <div>
                                 <h4 className='font-medium text-2xl'>My favorites</h4>
-                                <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2 my-3'>
-                                    {/* box */}
-                                    <div style={{ background: '#EFABAC' }} className='col-span-1 rounded-lg p-2 text-black'>
-                                        <div className='flex justify-end'>
-                                            <span>11/2/2024</span>
-                                        </div>
-                                        <p className='text-xl font-medium py-2 border-b '>title</p>
-                                        <p className='py-2 h-36 overflow-auto'>description</p>
+                                <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2 my-3 min-h-20'>
+                                    {checkIsFavoriteNote === true ? (this.state.notes.map(note => {
+                                        if (note.isFavorite) {
+                                            return <BoxNote key={note.id}  {...note} onRemoveToFavorite={this.removeToFavorite} onRemoveNote={this.removeNote} />
+                                        }
 
-                                        <div className='flex justify-around items-center  my-3'>
-                                            <button><MdEdit className='w-8 h-8' /></button>
-                                            <button><MdFavorite className='w-8 h-8 ' /></button>
-                                            <button><MdDelete className='w-8 h-8' /></button>
-                                        </div>
-                                    </div>
-                                    {/* box */}
-                                    <div style={{ background: '#EFABAC' }} className='col-span-1 rounded-lg p-2 text-black'>
-                                        <div className='flex justify-end'>
-                                            <span>11/2/2024</span>
-                                        </div>
-                                        <p className='text-xl font-medium py-2 border-b '>title</p>
-                                        <p className='py-2 h-36 overflow-auto'>description</p>
+                                    })) : (<p className='text-center col-span-full'>Empty 🌱🌟</p>)
 
-                                        <div className='flex justify-around items-center  my-3'>
-                                            <button><MdEdit className='w-8 h-8' /></button>
-                                            <button><MdFavorite className='w-8 h-8 ' /></button>
-                                            <button><MdDelete className='w-8 h-8' /></button>
-                                        </div>
-                                    </div>
-                                    {/* box */}
-                                    <div style={{ background: '#EFABAC' }} className='col-span-1 rounded-lg p-2 text-black'>
-                                        <div className='flex justify-end'>
-                                            <span>11/2/2024</span>
-                                        </div>
-                                        <p className='text-xl font-medium py-2 border-b '>title</p>
-                                        <p className='py-2 h-36 overflow-auto'>description</p>
-
-                                        <div className='flex justify-around items-center  my-3'>
-                                            <button><MdEdit className='w-8 h-8' /></button>
-                                            <button><MdFavorite className='w-8 h-8 ' /></button>
-                                            <button><MdDelete className='w-8 h-8' /></button>
-                                        </div>
-                                    </div>
-                                    {/* box */}
-                                    <div style={{ background: '#EFABAC' }} className='col-span-1 rounded-lg p-2 text-black'>
-                                        <div className='flex justify-end'>
-                                            <span>11/2/2024</span>
-                                        </div>
-                                        <p className='text-xl font-medium py-2 border-b '>title</p>
-                                        <p className='py-2 h-36 overflow-auto'>description</p>
-
-                                        <div className='flex justify-around items-center  my-3'>
-                                            <button><MdEdit className='w-8 h-8' /></button>
-                                            <button><MdFavorite className='w-8 h-8 ' /></button>
-                                            <button><MdDelete className='w-8 h-8' /></button>
-                                        </div>
-                                    </div>
-
-
+                                    }
                                 </div>
                             </div>
 
                             <div>
                                 <h4 className='font-medium text-2xl'>My Note</h4>
                                 <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2 my-3'>
-                                    {/* box */}
-                                    <div style={{ background: '#EFABAC' }} className='col-span-1 rounded-lg p-2 text-black'>
-                                        <div className='flex justify-end'>
-                                            <span>11/2/2024</span>
-                                        </div>
-                                        <p className='text-xl font-medium py-2 border-b '>title</p>
-                                        <p className='py-2 h-36 overflow-auto'>description</p>
-
-                                        <div className='flex justify-around items-center  my-3'>
-                                            <button><MdEdit className='w-8 h-8' /></button>
-                                            <button><MdFavorite className='w-8 h-8 ' /></button>
-                                            <button><MdDelete className='w-8 h-8' /></button>
-                                        </div>
-                                    </div>
-                                    {/* box */}
-                                    <div style={{ background: '#EFABAC' }} className='col-span-1 rounded-lg p-2 text-black'>
-                                        <div className='flex justify-end'>
-                                            <span>11/2/2024</span>
-                                        </div>
-                                        <p className='text-xl font-medium py-2 border-b '>title</p>
-                                        <p className='py-2 h-36 overflow-auto'>description</p>
-
-                                        <div className='flex justify-around items-center  my-3'>
-                                            <button><MdEdit className='w-8 h-8' /></button>
-                                            <button><MdFavorite className='w-8 h-8 ' /></button>
-                                            <button><MdDelete className='w-8 h-8' /></button>
-                                        </div>
-                                    </div>
-                                    {/* box */}
-                                    <div style={{ background: '#EFABAC' }} className='col-span-1 rounded-lg p-2 text-black'>
-                                        <div className='flex justify-end'>
-                                            <span>11/2/2024</span>
-                                        </div>
-                                        <p className='text-xl font-medium py-2 border-b '>title</p>
-                                        <p className='py-2 h-36 overflow-auto'>description</p>
-
-                                        <div className='flex justify-around items-center  my-3'>
-                                            <button><MdEdit className='w-8 h-8' /></button>
-                                            <button><MdFavorite className='w-8 h-8 ' /></button>
-                                            <button><MdDelete className='w-8 h-8' /></button>
-                                        </div>
-                                    </div>
-                                    {/* box */}
-                                    <div style={{ background: '#EFABAC' }} className='col-span-1 rounded-lg p-2 text-black'>
-                                        <div className='flex justify-end'>
-                                            <span>11/2/2024</span>
-                                        </div>
-                                        <p className='text-xl font-medium py-2 border-b '>title</p>
-                                        <p className='py-2 h-36 overflow-auto'>description</p>
-
-                                        <div className='flex justify-around items-center  my-3'>
-                                            <button><MdEdit className='w-8 h-8' /></button>
-                                            <button><MdFavorite className='w-8 h-8 ' /></button>
-                                            <button><MdDelete className='w-8 h-8' /></button>
-                                        </div>
-                                    </div>
-
-
-
-
+                                    {this.state.notes.length > 0 ? (this.state.notes.map(note => (<BoxNote key={note.id} {...note} onAddToFavorite={this.addToFavorite} onRemoveToFavorite={this.removeToFavorite} s onRemoveNote={this.removeNote} />))) : (<p className='text-center col-span-full '>No note has been added</p>)}
 
                                 </div>
                             </div>
                         </main>
 
-                    </div>
+                    </div >
 
-                </div>
+                </div >
 
             </>
         )
