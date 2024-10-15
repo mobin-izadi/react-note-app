@@ -25,6 +25,7 @@ export class NoteApp extends Component {
                 "#FF89FD",
             ],
             isAddNewNote: false,
+            isEditNote: false,
             newNote: {
                 id: null,
                 isFavorite: false,
@@ -36,6 +37,7 @@ export class NoteApp extends Component {
 
             },
             notes: [],
+            mainEditNote: null
 
         }
 
@@ -47,6 +49,12 @@ export class NoteApp extends Component {
         this.addToFavorite = this.addToFavorite.bind(this)
         this.removeNote = this.removeNote.bind(this)
         this.removeToFavorite = this.removeToFavorite.bind(this)
+        this.editNote = this.editNote.bind(this)
+        this.editNoteHandler = this.editNoteHandler.bind(this)
+        this.titleEditNoteHandler = this.titleEditNoteHandler.bind(this)
+        this.descriptionEditNoteHandler = this.descriptionEditNoteHandler.bind(this)
+        this.changeEditColor = this.changeEditColor.bind(this)
+        this.showEditNewNoteHandler = this.showEditNewNoteHandler.bind(this)
     }
 
     removeToFavorite(id) {
@@ -81,8 +89,6 @@ export class NoteApp extends Component {
     }
 
     addNewNote() {
-        console.log(this.state.newNote);
-
         let now = new Date()
         this.setState(preState => ({
             notes: [...preState.notes, { ...preState.newNote, id: this.state.notes.length + 1, date: `${now.getFullYear()}/${now.getMonth()}/${now.getDay()} ` }],
@@ -99,7 +105,7 @@ export class NoteApp extends Component {
     }
 
     changeColor(color) {
-        console.log(color);
+
         this.setState(preState => ({
             newNote: {
                 ...preState.newNote,
@@ -140,6 +146,67 @@ export class NoteApp extends Component {
             },
         }))
     }
+    showEditNewNoteHandler() {
+        this.setState({ isEditNote: false })
+    }
+
+    editNoteHandler(id) {
+        let mainNote = this.state.notes.filter(note => note.id === id)
+
+        this.setState({
+            mainEditNote: mainNote[0],
+            isEditNote: true
+        })
+    }
+    titleEditNoteHandler(event) {
+        this.setState(preState => ({
+            mainEditNote: {
+                ...preState.mainEditNote,
+                title: event.target.value
+            }
+        }))
+    }
+    descriptionEditNoteHandler(event) {
+        this.setState(preState => ({
+            mainEditNote: {
+                ...preState.mainEditNote,
+                description: event.target.value
+            }
+        }))
+
+    }
+
+    changeEditColor(color) {
+
+        this.setState(preState => ({
+            mainEditNote: {
+                ...preState.mainEditNote,
+                color
+            }
+        }))
+    }
+
+    editNote() {
+        let updateNotes = this.state.notes.map(note => {
+            let now = new Date()
+            if (note.id !== this.state.mainEditNote.id) {
+                return note
+            } else {
+                return {
+                    id: this.state.mainEditNote.id,
+                    isFavorite: this.state.mainEditNote.isFavorite,
+                    date: `${now.getFullYear()}/${now.getMonth()}/${now.getDay()} `,
+                    title: this.state.mainEditNote.title,
+                    description: this.state.mainEditNote.description,
+                    color: this.state.mainEditNote.color,
+                }
+            }
+        })
+
+        this.setState({ notes: updateNotes })
+
+
+    }
     render() {
 
         let checkIsFavoriteNote = this.state.notes.some(note => note.isFavorite === true)
@@ -148,6 +215,30 @@ export class NoteApp extends Component {
 
         return (
             <>
+                {/* edit note */}
+                {this.state.isEditNote && (<div className='fixed inset-0 flex justify-center items-center '>
+                    <div style={{ background: this.state.mainEditNote.color }} className='w-80 md:w-[500px]  shadow-lg rounded-lg p-2'>
+                        <div className='flex justify-end mb-5'>
+                            <button onClick={this.showEditNewNoteHandler}>
+                                <IoMdClose className='w-7 h-7' />
+                            </button>
+                        </div>
+                        <div className='flex flex-col gap-3'>
+                            <input type="text" placeholder='Title ...' className='border rounded-lg h-10 p-2 outline-none' onChange={this.titleEditNoteHandler} value={this.state.mainEditNote.title} />
+                            <input type="text" placeholder='description ...' className='border rounded-lg h-10 p-2 outline-none' onChange={this.descriptionEditNoteHandler} value={this.state.mainEditNote.description} />
+                        </div>
+                        <div className='flex items-center gap-2 my-3'>
+                            {this.state.colors.map(color => (< ColorBox key={color} color={color} onChangeColor={this.changeEditColor} />))}
+                        </div>
+                        <div className='flex justify-center my-5 '>
+                            <button className='bg-blue-600 text-white  py-3 px-5 rounded-lg flex justify-center items-center gap-1' onClick={this.editNote}>
+                                <FaSquarePlus className='w-6 h-6 text-white'></FaSquarePlus>Edit</button>
+                        </div>
+                    </div>
+
+
+                </div>)}
+
                 {/* add new note wrapper */}
                 {this.state.isAddNewNote && (<div className='fixed inset-0 flex justify-center items-center '>
                     <div style={{ background: this.state.newNote.color }} className='w-80 md:w-[500px]  shadow-lg rounded-lg p-2'>
@@ -206,7 +297,7 @@ export class NoteApp extends Component {
                             <div>
                                 <h4 className='font-medium text-2xl'>My Note</h4>
                                 <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2 my-3'>
-                                    {this.state.notes.length > 0 ? (this.state.notes.map(note => (<BoxNote key={note.id} {...note} onAddToFavorite={this.addToFavorite} onRemoveToFavorite={this.removeToFavorite} s onRemoveNote={this.removeNote} />))) : (<p className='text-center col-span-full '>No note has been added</p>)}
+                                    {this.state.notes.length > 0 ? (this.state.notes.map(note => (<BoxNote key={note.id} {...note} onAddToFavorite={this.addToFavorite} onRemoveToFavorite={this.removeToFavorite} onRemoveNote={this.removeNote} onEditNote={this.editNoteHandler} />))) : (<p className='text-center col-span-full '>No note has been added</p>)}
 
                                 </div>
                             </div>

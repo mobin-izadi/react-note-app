@@ -13,6 +13,9 @@ export class BoxNote extends Component {
     removeNote(id) {
         this.props.onRemoveNote(id)
     }
+    editNote(id) {
+        this.props.onEditNote(id)
+    }
     render() {
         let { id, title, description, date, color, isFavorite, Favorite } = this.props
 
@@ -28,7 +31,7 @@ export class BoxNote extends Component {
                     <p className='py-2 h-36 overflow-y-auto  break-words'>{description}</p>
 
                     <div className='flex justify-around items-center  my-3'>
-                        <button><MdEdit className='w-8 h-8 text-blue-500 bg-white rounded-full p-1 ' /></button>
+                        <button><MdEdit className='w-8 h-8 text-blue-500 bg-white rounded-full p-1 ' onClick={this.editNote.bind(this, id)} /></button>
 
                         {isFavorite === false ? (<button><FaRegHeart className='w-8 h-8 text-yellow-500 bg-white rounded-full p-1 ' onClick={this.addToFavorite.bind(this, id)} /></button>) : (<button><MdFavorite className='w-8 h-8 text-yellow-500 bg-white rounded-full p-1 ' onClick={this.removeToFavorite.bind(this, id)} /></button>)}
 
