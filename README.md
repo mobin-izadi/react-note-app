@@ -1,70 +1,136 @@
-# Getting Started with Create React App
+![note app](./public/images/thumb.jpg)
+[View Online Version](https://mobin-izadi.github.io/react-note-app/) |
+[View Desktop Version Image](./public/images/pc.png) 💻 |
+[View Mobile Version Image](./public/images/mobile.png) 📱
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 📝 Note App
 
-## Available Scripts
+This project is a **Note App** developed using the **React** library in a **Class-based** format. The main goal of implementing this project was to practice and improve my skills in React.
 
-In the project directory, you can run:
+## 🌟 Features
 
-### `npm start`
+- **Add new notes**: Users can create new notes.
+- **Delete notes**: Ability to delete existing notes.
+- **Favorite notes**: Users can mark their favorite notes.
+- **Edit notes**: Ability to edit and update note content.
+- **Note creation date**: Automatically records the creation date of each note.
+- **Responsive design**: The app is fully optimized for all screen sizes and works responsively.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🌱 Project Goal
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The primary goal of this project is to enhance my skills in working with React, specifically gaining a deeper understanding of class-based components. This project has been developed as a learning exercise.
 
-### `npm test`
+## 📖 Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Follow the instructions below to clone and run the project locally.
 
-### `npm run build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Make sure you have the following installed on your machine:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Node.js** (v14 or higher)
+- **npm**  (for package management)
+  
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **Clone the Repository**
 
-### `npm run eject`
+   Clone the repository to your local machine using the following command:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```bash
+   git clone https://github.com/mobin-izadi/react-note-app.git
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. **Navigate to the Project Directory**
+   
+   Change your directory to the project folder:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   ```bash
+   cd react-note-app
+   ```
+3. **Install Dependencies**
+    Install the required dependencies using npm
+    ```bash
+   npm install
+   ```
+4. **Running the Application**
+To run the application locally, use the following command:
+  ```bash
+   npm start
+   ```
+   This will start the development server, and you can view the application in your browser at http://localhost:3000.
+   
+5. **Building the Project**
+To create a production build, use:
+  ```bash
+   npm run build
+   ```
+   This will generate optimized static files for deployment.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+# 📝 Note App
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+این پروژه یک **Note App** است که با استفاده از کتابخانه **React** و به صورت **Class-based** توسعه داده شده است. هدف از پیاده‌سازی این پروژه، تمرین و ارتقای مهارت‌های من در کار با React بوده است.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🌟 ویژگی‌ها
 
-### Code Splitting
+- **اضافه کردن یادداشت جدید**: کاربران می‌توانند یادداشت‌های جدیدی ایجاد کنند.
+- **حذف یادداشت‌ها**: قابلیت حذف یادداشت‌های موجود.
+- **نشان‌گذاری یادداشت‌های مورد علاقه**: کاربران می‌توانند یادداشت‌های مورد علاقه خود را نشان‌گذاری کنند.
+- **ویرایش یادداشت‌ها**: امکان ویرایش و به‌روزرسانی محتوای یادداشت‌ها.
+- **ثبت تاریخ ایجاد یادداشت**: تاریخ ایجاد هر یادداشت به‌صورت خودکار ثبت می‌شود.
+- **طراحی ریسپانسیو**: این اپلیکیشن برای تمامی اندازه‌های صفحه‌نمایش بهینه‌سازی شده است و به‌صورت کاملاً ریسپانسیو عمل می‌کند.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🌱 هدف پروژه
 
-### Analyzing the Bundle Size
+هدف اصلی این پروژه، بهبود مهارت‌های من در زمینه کار با React و به‌ویژه درک عمیق‌تر مفاهیم کلاس‌بیس بوده است. این پروژه به عنوان یک تمرین آموزشی پیاده‌سازی شده است.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 📖 شروع به کار
 
-### Making a Progressive Web App
+دستورالعمل‌های زیر را دنبال کنید تا مخزن را کلون کرده و پروژه را به صورت محلی اجرا کنید.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### پیش‌نیازها
 
-### Advanced Configuration
+اطمینان حاصل کنید که موارد زیر بر روی سیستم شما نصب شده باشد:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **Node.js** (نسخه 14 یا بالاتر)
+- **npm** (برای مدیریت بسته‌ها)
 
-### Deployment
+### نصب
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+1. **کلون کردن مخزن**
 
-### `npm run build` fails to minify
+   مخزن را با استفاده از دستور زیر به سیستم خود کلون کنید:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+   ```bash
+   git clone https://github.com/mobin-izadi/react-note-app.git
+   ```
+2. **رفتن به دایرکتوری پروژه**
+   
+به دایرکتوری پروژه بروید:
+
+
+   ```bash
+   cd react-note-app
+   ```
+3. **نصب وابستگی‌ها**
+وابستگی‌های مورد نیاز را با استفاده از npm نصب کنید:
+
+    ```bash
+   npm install
+   ```
+4. **اجرای برنامه**
+برای اجرای برنامه به صورت محلی، از دستور زیر استفاده کنید:
+
+  ```bash
+   npm start
+   ```
+این دستور سرور توسعه را راه‌اندازی می‌کند و شما می‌توانید برنامه را در مرورگر خود در آدرس http://localhost:3000 مشاهده کنید.
+
+5. **ساخت پروژه**
+برای ایجاد یک بیلد تولیدی، از دستور زیر استفاده کنید:
+
+  ```bash
+   npm run build
+   ```
+این دستور فایل‌های استاتیک بهینه‌سازی شده را برای استقرار تولید می‌کند.
